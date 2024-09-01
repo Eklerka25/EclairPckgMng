@@ -1,11 +1,8 @@
-set os.host.os=unknown
+@echo off
+setlocal enableDelayedExpansion
+set os.host.os=fremoved
 
-for /f "tokens=1 delims==" %%a in ('ver') do (
-    echo %%a | findstr /i "Windows" >nul
-    if %errorlevel%==0 set os.host.os=win
-)
-
-if "!os.host.os!"=="win" (
+if "!os.host.os!"=="fremoved" (
     for /f "tokens=2 delims==" %%a in ('wmic cpu get name /value') do set "os.cpu=%%a"
     for /f "tokens=2 delims==" %%a in ('wmic path win32_videocontroller get name /value') do set "os.gpu=%%a"
     for /f "tokens=2 delims==" %%a in ('wmic computersystem get totalphysicalmemory /value') do (
@@ -43,3 +40,4 @@ if "!os.host.os!"=="win" (
 ) else (
     call C:\root\sbin\errorHandler.bat package1 neofetch
 )
+@echo on
